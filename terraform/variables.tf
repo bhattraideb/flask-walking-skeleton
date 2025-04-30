@@ -7,7 +7,7 @@ variable "managed_by" {
 variable "project" {
   type        = string
   description = "Project name"
-  default     = "Kubernetes deployment"
+  default     = "cloud native deployment"
 }
 
 variable "owner" {
@@ -31,13 +31,13 @@ variable "AWS_REGION" {
 variable "flask_api_repository_name" {
   type        = string
   description = "Flask API repo name deployed from GitHub"
-  default     = "kubernetes-flask-api-images"
+  default     = "cloud-native-flask-api-images"
 }
 
 variable "django_api_repository_name" {
   type        = string
   description = "Django API repo name deployed from GitHub"
-  default     = "kubernetes-django-api-images"
+  default     = "cloud-native-django-api-images"
 }
 
 variable "ecs_application_port" {
