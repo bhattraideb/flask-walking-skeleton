@@ -1,0 +1,50 @@
+# Use the official Python 3.10 image as the base image
+FROM python:3.10-alpine
+LABEL maintainer="BhattraiDeb"
+
+# Set the working directory inside the container & Copy Application
+COPY ./django-api /app
+WORKDIR /app
+
+# set environment variables & Poetry
+ENV PYTHONUNBUFFERED=1 \
+    PYTHONFAULTHANDLER=1 \
+    PYTHONHASHSEED=random \
+    PYTHONDONTWRITEBYTECODE=1 \
+    POETRY_CACHE_DIR=/opt/.cache \
+    POETRY_VERSION=1.7.0 \
+    POETRY_HOME=/opt/poetry \
+    POETRY_VENV=/opt/poetry-venv \
+    DJANGO_RUN_HOST=0.0.0.0
+
+## Install poetry separated from system interpreter
+RUN python3 -m venv $POETRY_VENV \
+	&& $POETRY_VENV/bin/pip install -U pip setuptools \
+	&& $POETRY_VENV/bin/pip install poetry==${POETRY_VERSION}
+
+# Add `poetry` to PATH
+ENV PATH="${PATH}:${POETRY_VENV}/bin"
+
+# Install the Python dependencies
+RUN apk add --update curl jq git  postgresql-client postgresql-dev && \
+    pip install --upgrade pip && \
+    pip install flake8 pytest && \
+    poetry install --no-interaction --no-cache --without dev
+
+# [OPTIONAL] Validate the project is properly configured
+RUN poetry check
+
+# Expose the port on which the Django app will run
+EXPOSE 8000
+ENV DJANGO_APP=app/django_api
+
+HEALTHCHECK --interval=30s --timeout=30s --start-period=30s --retries=5 \
+            CMD curl -f http://0.0.0.0:8000/admin || exit 1
+
+COPY ./scripts /scripts
+RUN chmod -R +x /scripts
+
+# Specify the command to run the application
+CMD ["scripts/django_run.sh"]
+#CMD [ "poetry", "run", "python", "manage.py", "runserver", "0.0.0.0:8000"]
+

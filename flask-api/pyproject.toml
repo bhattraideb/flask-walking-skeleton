@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "flask-api"
+version = "0.1.0"
+description = "Flask API with poetry"
+authors = ["BhattraiDeb <bhatrai.deb@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+Flask = "^3.0.2"
+
+[tool.poetry.dev-dependencies]
+pytest = "^8.2.2"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

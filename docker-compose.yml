@@ -1,0 +1,38 @@
+version: "3.9"
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: flask_api:1.0
+    container_name: flask_api
+    ports:
+      - "8080:5000"
+    restart: always
+    volumes:
+      - ./flask-api-data:/app
+
+  redis:
+    image: "redis:alpine"
+
+#    environment:
+#      - DB_HOST=db
+#      - DB_NAME=inventory
+#      - DB_USER=admin
+#      - DB_PASS=admin
+#      - DB_PORT=5432
+#      - DEBUG=1
+#      - S3_STORAGE_BACKEND=0
+#    depends_on:
+#      - db
+#
+#  db:
+#    image: postgres:12-alpine
+#    environment:
+#      - POSTGRES_DB=inventory
+#      - POSTGRES_USER=admin
+#      - POSTGRES_PASSWORD=admin
+
+
+
