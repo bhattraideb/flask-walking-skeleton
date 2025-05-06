@@ -7,7 +7,7 @@ variable "managed_by" {
 variable "project" {
   type        = string
   description = "Project name"
-  default     = "cloud native deployment"
+  default     = "cloud-native-deployment"
 }
 
 variable "owner" {
@@ -31,7 +31,7 @@ variable "AWS_REGION" {
 variable "flask_api_repository_name" {
   type        = string
   description = "Flask API repo name deployed from GitHub"
-  default     = "cloud-native-flask-api-images"
+  default     = "flask-api"
 }
 
 variable "django_api_repository_name" {
@@ -151,23 +151,6 @@ variable "engine_family" {
 #   default     = []
 # }
 
-variable "parameters" {
-  description = "rds parameters to set"
-  type = list(object({
-    name  = string
-    value = string
-  }))
-  default = [{
-    name  = "log_connections"
-    value = 1
-    }, {
-    name  = "character_set_server"
-    value = "utf8"
-    }, {
-    name  = "character_set_client"
-    value = "utf8"
-  }]
-}
 variable "ingress_security_groups" {
   description = "Security groups to allow"
   default     = []
@@ -177,4 +160,9 @@ variable "allow_self" {
   default     = false
 }
 
+variable "load_balancer_type" {
+  type        = string
+  description = "Load Balancer type, one of  application, gateway, or network"
+  default     = "application"
+}
 
