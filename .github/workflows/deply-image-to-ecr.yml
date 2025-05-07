@@ -84,7 +84,7 @@ jobs:
       - name: Build and push the tagged docker image to ECR
         env:
           ECR_REGISTRY: ${{ steps.login-aws-ecr.outputs.registry }}
-          ECR_REPOSITORY: 'cloud-native-deployment-flask-api'       #${{ steps.login-aws-ecr.outputs.ecr_repo_name }}
+          ECR_REPOSITORY: 'cloud-native-flask-api'       #${{ steps.login-aws-ecr.outputs.ecr_repo_name }}
           IMAGE_TAG: latest
         run: |
           docker build -Dockerfile -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
