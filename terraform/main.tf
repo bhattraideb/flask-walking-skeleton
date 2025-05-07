@@ -11,7 +11,7 @@ module "custom_vpc" {
 
 module "app_repo" {
   source          = "./modules/aws_ecr"
-  repository_name = "${var.project}-${var.flask_api_repository_name}"
+  repository_name = "${var.project}-${var.repository_name}"
   force_delete    = false
 }
 

@@ -7,7 +7,7 @@ variable "managed_by" {
 variable "project" {
   type        = string
   description = "Project name"
-  default     = "cloud-native-deployment"
+  default     = "cloud-native"
 }
 
 variable "owner" {
@@ -28,7 +28,7 @@ variable "AWS_REGION" {
   default     = "us-east-1"
 }
 
-variable "flask_api_repository_name" {
+variable "repository_name" {
   type        = string
   description = "Flask API repo name deployed from GitHub"
   default     = "flask-api"
