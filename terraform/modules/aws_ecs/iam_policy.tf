@@ -60,6 +60,7 @@ resource "aws_iam_role_policy" "ecs_execution_policy" {
                   "ecr:ListImages",
                   "ecr:DescribeImage",
                   "ecr:BatchCheckLayerAvailability",
+                  "logs:CreateLogStream"
                 ],
                 Effect = "Allow",
                 Resource = "*"
