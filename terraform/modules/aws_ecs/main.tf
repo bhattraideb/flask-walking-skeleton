@@ -68,7 +68,7 @@ resource "aws_ecs_task_definition" "app_task" {
   container_definitions = jsonencode([
     {
       name  = "${var.prefix}-${var.app_name}"
-      image = "${var.ecr_image_url}:latest" #"645662440846.dkr.ecr.us-east-1.amazonaws.com/cloud-native-flask-api:latest"    # "your-dockerhub-username/your-image:your-tag" # Replace with your Docker image details
+      image = "${var.ecr_image_url}:latest" #"645662440846.dkr.ecr.us-east-1.amazonaws.com/cloud-native-flask-api:latest"
       portMappings = [
         {
           containerPort = 5000
