@@ -1,25 +1,25 @@
-resource "aws_iam_policy" "task_execution_role_policy" {
-  policy      = file("${path.module}/templates/ecs/task-exec-role.json")
-  name        = "${var.prefix}-task-exec-role-policy"
-  path        = "/"
-  description = "Allow retrieving of image and adding to logs"
-}
+# resource "aws_iam_policy" "task_execution_role_policy" {
+#   policy      = file("${path.module}/templates/ecs/task-exec-role.json")
+#   name        = "${var.prefix}-task-exec-role-policy"
+#   path        = "/"
+#   description = "Allow retrieving of image and adding to logs"
+# }
 
-resource "aws_iam_role" "task_execution_role" {
-  #  assume_role_policy = "${path.module}/templates/ecs/assume-role-policy.json"
-  assume_role_policy = file("${path.module}/templates/ecs/assume-role-policy.json")
-  name               = "${var.prefix}-task-exec-role"
-}
+# resource "aws_iam_role" "task_execution_role" {
+#   #  assume_role_policy = "${path.module}/templates/ecs/assume-role-policy.json"
+#   assume_role_policy = file("${path.module}/templates/ecs/assume-role-policy.json")
+#   name               = "${var.prefix}-task-exec-role"
+# }
+#
+# resource "aws_iam_role_policy_attachment" "task_execution_role" {
+#   policy_arn = aws_iam_policy.task_execution_role_policy.arn
+#   role       = aws_iam_role.task_execution_role.name
+# }
 
-resource "aws_iam_role_policy_attachment" "task_execution_role" {
-  policy_arn = aws_iam_policy.task_execution_role_policy.arn
-  role       = aws_iam_role.task_execution_role.name
-}
-
-resource "aws_iam_role" "app_iam_role" {
-  assume_role_policy = file("${path.module}/templates/ecs/assume-role-policy.json")
-  name               = "${var.prefix}-app-task"
-}
+# resource "aws_iam_role" "app_iam_role" {
+#   assume_role_policy = file("${path.module}/templates/ecs/assume-role-policy.json")
+#   name               = "${var.prefix}-app-task"
+# }
 
 #data "template_file" "ecs_s3_write_policy" {
 #  template = file("./templates/ecs/s3-write-policy.json.tpl")

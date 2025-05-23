@@ -61,14 +61,14 @@ resource "aws_ecs_task_definition" "app_task" {
   memory                   = 512
   execution_role_arn       = aws_iam_role.ecs_task_execution_role.arn
   # execution_role_arn       = aws_iam_role.task_execution_role.arn
-  # task_role_arn = aws_iam_role.ecs_task_role.arn
+  task_role_arn = aws_iam_role.ecs_task_role.arn
   # task_role_arn            = aws_iam_role.app_iam_role.arn
 
   # container_definitions    = data.template_file.app_container_definitions.rendered
   container_definitions = jsonencode([
     {
       name  = "${var.prefix}-${var.app_name}"
-      image = "645662440846.dkr.ecr.us-east-1.amazonaws.com/cloud-native-flask-api:latest"    #var.ecr_image_url # "your-dockerhub-username/your-image:your-tag" # Replace with your Docker image details
+      image = "${var.ecr_image_url}:latest" #"645662440846.dkr.ecr.us-east-1.amazonaws.com/cloud-native-flask-api:latest"    # "your-dockerhub-username/your-image:your-tag" # Replace with your Docker image details
       portMappings = [
         {
           containerPort = 5000
