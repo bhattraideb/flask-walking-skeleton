@@ -52,18 +52,16 @@ resource "aws_iam_role_policy" "ecs_execution_policy" {
                 Action = [
                   "ecr:GetAuthorizationToken",
                   "ecr:BatchCheckLayerAvailability",
-                  "ecr:DownloadLayerPart",
                   "ecr:GetDownloadURLForLayer",
                   "ecr:GetRepositoryPolicy",
                   "ecr:DescribeRepositories",
                   "ecr:DescribeRegistry",
                   "ecr:ListImages",
-                  "ecr:DescribeImage",
                   "ecr:BatchCheckLayerAvailability",
                   "logs:CreateLogStream"
                 ],
                 Effect = "Allow",
-                Resource = "arn:aws:ecr:us-east-1:645662440846:repository/cloud-native-flask-api"
+                Resource = "#"     #"arn:aws:ecr:us-east-1:645662440846:repository/cloud-native-flask-api"
               }
             ]
           })
