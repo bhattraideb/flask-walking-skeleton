@@ -4,7 +4,7 @@ terraform {
   required_providers {
     aws = {
       source  = "hashicorp/aws"
-      version = "~> 5.0"
+      version = "~> 5.11"
     }
   }
 }
@@ -14,10 +14,10 @@ provider "aws" {
   profile = "tf-user-for-test"
   default_tags {
     tags = {
-      #       Environment = var.environment
-      Project = var.project
-      #       Owner       = var.owner
-      #       ManagedBy   = var.managed_by
+      Environment = var.environment
+      Project     = var.project
+      Owner       = var.owner
+      ManagedBy   = var.managed_by
     }
   }
 }

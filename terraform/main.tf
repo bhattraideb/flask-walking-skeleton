@@ -12,7 +12,7 @@ module "custom_vpc" {
 module "app_repo" {
   source          = "./modules/aws_ecr"
   repository_name = "${var.project}-${var.repository_name}"
-  force_delete    = false
+  force_delete    = true
 }
 
 module "load_balancer" {

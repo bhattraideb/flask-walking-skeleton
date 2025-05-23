@@ -48,10 +48,11 @@ variable "private_subnet_ids" {
   description = "Subnet ID of private"
 }
 
-#variable "private_b_subnet_id" {
-#  type = string
-#  description = "Subnet ID of private a"
-#}
+variable "aws_region" {
+  type        = string
+  description = "Region"
+  default     = "us-east-1"
+}
 
 variable "ecr_image_url" {
   type        = string
