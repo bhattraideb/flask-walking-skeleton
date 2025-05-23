@@ -5,7 +5,8 @@ resource "aws_iam_role" "ecs_task_execution_role" {
     Version = "2012-10-17"
     Statement = [
       {
-        Action = "sts:AssumeRole"
+        # Action = "sts:AssumeRole"
+        "Action" = "ecr:GetAuthorizationToken"
         Effect = "Allow"
         Principal = {
           Service = "ecs-tasks.amazonaws.com"
@@ -27,7 +28,8 @@ resource "aws_iam_role" "ecs_task_role" {
     Version = "2012-10-17"
     Statement = [
       {
-        Action = "sts:AssumeRole"
+        # Action = "sts:AssumeRole"
+        "Action" = "ecr:GetAuthorizationToken"
         Effect = "Allow"
         Principal = {
           Service = "ecs-tasks.amazonaws.com"
