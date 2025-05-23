@@ -1,6 +1,5 @@
 # load balancer main definition
 resource "aws_lb" "main_load_balancer" {
-  #  name               = "${var.prefix}-load-balancer"
   name                       = "${var.prefix}-app"
   internal                   = false
   load_balancer_type         = var.load_balancer_type
@@ -26,6 +25,12 @@ resource "aws_lb_target_group" "load_balancer_target_group" {
 
   health_check {
     path = "/fizzbuzz/5"
+    protocol = "HTTP"
+    matcher  = "200"
+    interval = 30
+    timeout  = 5
+    healthy_threshold   = 2
+    unhealthy_threshold = 2
   }
 }
 
