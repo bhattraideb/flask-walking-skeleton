@@ -67,17 +67,17 @@ jobs:
 #          aws-secret-access-key: $AWS_SECRET_ACCESS_KEY
 #          aws-region: $AWS_REGION
 
-        - name: Terraform Format & Plan
-          uses: aws-actions/configure-aws-credentials@v4
-          with:
-            aws-access-key-id: $AWS_ACCESS_KEY_ID
-            aws-secret-access-key: $AWS_SECRET_ACCESS_KEY
-            aws-region: $AWS_DEFAULT_REGION
-          run: |
-            cd terraform
-            terraform init --reconfigure
-            terraform fmt
-            terraform plan
+#        - name: Terraform Format & Plan
+#          uses: aws-actions/configure-aws-credentials@v4
+#          with:
+#            aws-access-key-id: $AWS_ACCESS_KEY_ID
+#            aws-secret-access-key: $AWS_SECRET_ACCESS_KEY
+#            aws-region: $AWS_DEFAULT_REGION
+#          run: |
+#            cd terraform
+#            terraform init --reconfigure
+#            terraform fmt
+#            terraform plan
 
 #      - name: Terraform Apply
 #        id: terraform_apply
