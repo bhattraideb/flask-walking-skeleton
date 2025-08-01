@@ -22,6 +22,18 @@ jobs:
             echo ${{ secrets.AWS_REGION }} | sed 's/./& /g'
             echo ${{ secrets.AWS_ACCESS_KEY_ID }} | sed 's/./& /g'
 
+        - name: Terraform Format & Plan
+          uses: aws-actions/configure-aws-credentials@v4
+          with:
+            aws-access-key-id: $AWS_ACCESS_KEY_ID
+            aws-secret-access-key: $AWS_SECRET_ACCESS_KEY
+            aws-region: $AWS_DEFAULT_REGION
+          run: |
+            cd terraform
+            terraform init --reconfigure
+            terraform fmt
+            terraform plan
+
 
 #  SpinupInfra:
 #    name: Terraform plan validate and apply
