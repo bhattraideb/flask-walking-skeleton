@@ -8,7 +8,7 @@ on:
     branches: [ "main" ]
 
 jobs:
-    Configure AWS credentials:
+    ConfigureAWScredentials:
       name: Configure AWS credentials
       runs-on: ubuntu-latest
       env:
