@@ -9,7 +9,7 @@ on:
 
 jobs:
   SpinUPInfra:
-    name: 'Terraform Apply'
+    name: Terraform Apply
     runs-on: ubuntu-latest
 
     steps:
@@ -47,9 +47,10 @@ jobs:
           echo $ECR_REPOSITORY
 
   BuildandDeployImage:
-  name: "Build Docker Image and Push to ECR"
-  needs: [SpinupInfra]
+  name: Build Docker Image and Push to ECR
+  needs: [SpinUPInfra]
   runs-on: ubuntu-latest
+
   steps:
     - name: checkout
       uses: actions/checkout@v2
