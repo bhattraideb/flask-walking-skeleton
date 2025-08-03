@@ -30,11 +30,11 @@ jobs:
 
     # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
     # Checks that all Terraform configuration files adhere to a canonical format
-#    - name: Add profile credentials to ~/.aws/credentials
-#      run: |
-#        aws configure set aws_access_key_id ${{ secrets.AWS_ACCESS_KEY_ID }} --profile tf-user-for-test
-#        aws configure set aws_secret_access_key ${{ secrets.AWS_SECRET_ACCESS_KEY }} --profile tf-user-for-test
-#        aws configure set aws_region ${{ secrets.AWS_DEFAULT_REGION }} --profile tf-user-for-test
+    - name: Add profile credentials to ~/.aws/credentials
+      run: |
+        aws configure set aws_access_key_id ${{ secrets.AWS_ACCESS_KEY_ID }} --profile tf-user-for-test
+        aws configure set aws_secret_access_key ${{ secrets.AWS_SECRET_ACCESS_KEY }} --profile tf-user-for-test
+        aws configure set aws_region ${{ secrets.AWS_DEFAULT_REGION }} --profile tf-user-for-test
         
     # Terraform Destroy
     - name: Terraform Destroy
