@@ -65,7 +65,7 @@ jobs:
 
       - name: Get ECR Repo URL
         id: get_ecr_repo_name
-        run: echo "::set-output ecr_repo_name=arn::$(terraform output -raw ecr_repo_name)"
+        run: echo "::set-output name=ecr_repo_name::$(terraform output -raw ecr_repo_name)"
 
   BuildandDeployImage:
     name: Build Docker Image and Push to ECR
