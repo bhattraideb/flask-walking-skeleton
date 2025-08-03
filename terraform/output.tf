@@ -10,3 +10,7 @@ output "ecr_repo_arn" {
 output "ecr_repo_name" {
   value = module.app_repo.ecr_repo_name
 }
+
+output "target_group_arn" {
+  value = module.load_balancer.target_group_arn
+}

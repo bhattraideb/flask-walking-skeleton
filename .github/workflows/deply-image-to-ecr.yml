@@ -14,8 +14,10 @@ jobs:
     permissions:
       id-token: write
       contents: read
-#    env:
-#      AWS_PROFILE: tf-user-for-test
+    env:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      AWS_REGION: ${{ secrets.AWS_DEFAULT_REGION }}
 
     steps:
       # 1. Checkout the repository to the runner
@@ -29,21 +31,23 @@ jobs:
 #            terraform_version: 1.8.0
 
       # 3. Configure AWS credentials from GitHub secrets
-      - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v4
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ secrets.AWS_DEFAULT_REGION }}
+#      - name: Configure AWS Credentials
+#        uses: aws-actions/configure-aws-credentials@v4
+#        with:
+#          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+#          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+#          aws-region: ${{ secrets.AWS_DEFAULT_REGION }}
+#
+#
+#      # 5. Add Aws profile
+#      - name: Add profile credentials to ~/.aws/credentials
+#        run: |
+#          aws configure set aws_access_key_id ${{ secrets.AWS_ACCESS_KEY_ID }} --profile tf-user-for-test
+#          aws configure set aws_secret_access_key ${{ secrets.AWS_SECRET_ACCESS_KEY }} --profile tf-user-for-test
+#          aws configure set aws_region ${{ secrets.AWS_DEFAULT_REGION }} --profile tf-user-for-test
 
-      - name: Add profile credentials to ~/.aws/credentials
-        run: |
-          aws configure set aws_access_key_id ${{ secrets.AWS_ACCESS_KEY_ID }} --profile tf-user-for-test
-          aws configure set aws_secret_access_key ${{ secrets.AWS_SECRET_ACCESS_KEY }} --profile tf-user-for-test
-          aws configure set aws_region ${{ secrets.AWS_DEFAULT_REGION }} --profile tf-user-for-test
 
-
-      # 4. Initialize a new or existing Terraform working directory
+      # 5. Initialize a new or existing Terraform working directory
       - name: Terraform Apply
         id: terraform_apply
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
@@ -57,34 +61,34 @@ jobs:
           echo $ECR_REGISTRY
           echo $ECR_REPOSITORY
 
-#  BuildandDeployImage:
-#    name: Build Docker Image and Push to ECR
-#    needs: [SpinUPInfra]
-#    runs-on: ubuntu-latest
-#
-#    steps:
-#      - name: checkout
-#        uses: actions/checkout@v2
-#
-#      - name: Setup AWS ECR Details
-#        uses: aws-actions/configure-aws-credentials@v4
-#        with:
-#          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-#          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-#          aws-region: ${{ secrets.AWS_DEFAULT_REGION }}
-#
-#      - name: Login to Amazon ECR
-#        id: login-aws-ecr
-#        uses: aws-actions/amazon-ecr-login@v2
-#
-#      - name: Build and push the tagged docker image to ECR
-#        env:
-#          ECR_REGISTRY: ${{ steps.login-aws-ecr.outputs.registry }}
-#          ECR_REPOSITORY: 'cloud-native-flask-api'       #${{ steps.login-aws-ecr.outputs.ecr_repo_name }}
-#          IMAGE_TAG: latest
-#        run: |
-#          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
-#          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+  BuildandDeployImage:
+    name: Build Docker Image and Push to ECR
+    needs: [SpinUPInfra]
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+
+      - name: Setup AWS ECR Details
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_DEFAULT_REGION }}
+
+      - name: Login to Amazon ECR
+        id: login-aws-ecr
+        uses: aws-actions/amazon-ecr-login@v2
+
+      - name: Build and push the tagged docker image to ECR
+        env:
+          ECR_REGISTRY: ${{ steps.login-aws-ecr.outputs.registry }}
+          ECR_REPOSITORY: 'cloud-native-flask-api'       #${{ steps.login-aws-ecr.outputs.ecr_repo_name }}
+          IMAGE_TAG: latest
+        run: |
+          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
           
 
 #    ConfigureAWScredentials:
