@@ -11,6 +11,6 @@ output "ecr_repo_name" {
   value = module.app_repo.ecr_repo_name
 }
 
-output "target_group_arn" {
-  value = module.load_balancer.target_group_arn
+output "load_balancer_dns_name" {
+  value = module.load_balancer.load_balancer_dns_name
 }
