@@ -8,34 +8,33 @@ on:
     branches: [ "main" ]
 
 jobs:
-  jobs:
-    terraform-apply:
-      name: 'Terraform Apply'
-      runs-on: ubuntu-latest
+  terraform-apply:
+    name: 'Terraform Apply'
+    runs-on: ubuntu-latest
 
-      steps:
-        # 1. Checkout the repository to the runner
-        - name: Checkout
-          uses: actions/checkout@v4
+    steps:
+      # 1. Checkout the repository to the runner
+      - name: Checkout
+        uses: actions/checkout@v4
 
-        # 2. Install the preferred version of Terraform CLI
-        - name: Setup Terraform
-          uses: hashicorp/setup-terraform@v3
+      # 2. Install the preferred version of Terraform CLI
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
 #          with:
 #            terraform_version: 1.8.0
 
-        # 3. Configure AWS credentials from GitHub secrets
-        - name: Configure AWS Credentials
-          uses: aws-actions/configure-aws-credentials@v4
-          with:
-            aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-            aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-            aws-region: us-east-1 # Change to your desired region
+      # 3. Configure AWS credentials from GitHub secrets
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1 # Change to your desired region
 
-        # 4. Initialize a new or existing Terraform working directory
-        - name: Terraform Init
-          id: init
-          run: terraform init
+      # 4. Initialize a new or existing Terraform working directory
+      - name: Terraform Init
+        id: init
+        run: terraform init
 
 #    ConfigureAWScredentials:
 #      name: Configure AWS credentials
