@@ -59,6 +59,14 @@ jobs:
           echo $ECR_REGISTRY
           echo $ECR_REPOSITORY
 
+#      - name: Get ALB DNS
+#        id: get_alb_dns
+#        run: echo "::set-output name=arn::$(terraform output -raw load_balancer_dns_name)"
+
+      - name: Get ECR Repo URL
+        id: get_ecr_repo_name
+        run: echo "::set-output ecr_repo_name=arn::$(terraform output -raw ecr_repo_name)"
+
   BuildandDeployImage:
     name: Build Docker Image and Push to ECR
     needs: [SpinUPInfra]
@@ -82,7 +90,7 @@ jobs:
       - name: Build and push the tagged docker image to ECR
         env:
           ECR_REGISTRY: ${{ steps.login-aws-ecr.outputs.registry }}
-          ECR_REPOSITORY: 'cloud-native-flask-api'       #${{ steps.login-aws-ecr.outputs.ecr_repo_name }}
+          ECR_REPOSITORY:  ${{ steps.get_ecr_repo_name.outputs.ecr_repo_name }}       #'cloud-native-flask-api'
           IMAGE_TAG: latest
         run: |
           docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
